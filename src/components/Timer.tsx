@@ -9,28 +9,30 @@ const Timer = () => {
 
 	let myInterval: any;
 
-	const startTimer = () => {
+	useEffect(() => {
 		if (isOn) {
-			return;
-		}
-		myInterval = setInterval(() => {
-			if (seconds > 0) {
-				setSeconds((seconds) => seconds - 1);
-			}
-			if (seconds === 0) {
-				if (minutes === 0) {
-					clearInterval(myInterval);
-				} else {
-					setMinutes(minutes - 1);
-					setSeconds(59);
+			myInterval = setTimeout(() => {
+				if (seconds > 0) {
+					setSeconds(seconds - 1);
 				}
-			}
-		}, 1000);
+				if (seconds === 0) {
+					if (minutes === 0) {
+						clearTimeout(myInterval);
+					} else {
+						setMinutes(minutes - 1);
+						setSeconds(59);
+					}
+				}
+			}, 1000);
+		}
+	}, [isOn, seconds]);
+
+	const startTimer = () => {
 		setIsOn(true);
 	};
 
 	const stopTimer = () => {
-		clearInterval(myInterval);
+		clearTimeout(myInterval);
 		setIsOn(false);
 	};
 
