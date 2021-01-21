@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Timer.css";
 import TimerButton from "./TimerButton/TimerButton";
 
@@ -7,17 +7,17 @@ const Timer = () => {
 	const [seconds, setSeconds] = useState<number>(0);
 	const [isOn, setIsOn] = useState<boolean>(false);
 
-	let myInterval: any;
+	let myInterval = useRef<any>(null);
 
 	useEffect(() => {
 		if (isOn) {
-			myInterval = setTimeout(() => {
+			myInterval.current = setTimeout(() => {
 				if (seconds > 0) {
 					setSeconds(seconds - 1);
 				}
 				if (seconds === 0) {
 					if (minutes === 0) {
-						clearTimeout(myInterval);
+						clearTimeout(myInterval.current);
 					} else {
 						setMinutes(minutes - 1);
 						setSeconds(59);
@@ -32,7 +32,7 @@ const Timer = () => {
 	};
 
 	const stopTimer = () => {
-		clearTimeout(myInterval);
+		clearTimeout(myInterval.current);
 		setIsOn(false);
 	};
 
