@@ -19,16 +19,18 @@ const Timer = () => {
 					if (minutes === 0) {
 						clearTimeout(myInterval.current);
 					} else {
-						setMinutes((minutes) => minutes - 1);
+						setMinutes(minutes - 1);
 						setSeconds(59);
 					}
 				}
 			}, 1000);
 		}
-	}, [isOn, seconds]);
+	}, [isOn, seconds, minutes]);
 
 	const startTimer = () => {
 		setIsOn(true);
+		setMinutes(minutes - 1);
+		setSeconds(59);
 	};
 
 	const stopTimer = () => {
