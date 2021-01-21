@@ -13,13 +13,13 @@ const Timer = () => {
 		if (isOn) {
 			myInterval.current = setTimeout(() => {
 				if (seconds > 0) {
-					setSeconds(seconds - 1);
+					setSeconds((seconds) => seconds - 1);
 				}
 				if (seconds === 0) {
 					if (minutes === 0) {
 						clearTimeout(myInterval.current);
 					} else {
-						setMinutes(minutes - 1);
+						setMinutes((minutes) => minutes - 1);
 						setSeconds(59);
 					}
 				}
